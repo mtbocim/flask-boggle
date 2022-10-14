@@ -40,4 +40,4 @@ class BoggleAppTestCase(TestCase):
             # breakpoint()
             self.assertEqual(len(resp.json['board'][4]), 5)
             self.assertIsNotNone(resp.json['gameId'])
-            # write a test for this route
+            self.assertIn(resp.json['gameId'],games)
