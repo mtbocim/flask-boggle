@@ -19,7 +19,7 @@ class WordList:
         return f"<WordList len={len(self.words)}>"
 
     def _read_dict(self, dict_path):
-        """Read dictionary file at dict_path and return set of words."""
+        """Read dictionary file at dict_path and return set of UPPERCASE words."""
 
         dict_file = open(dict_path)
         words = {w.strip().upper() for w in dict_file}
@@ -28,9 +28,20 @@ class WordList:
         return words
 
     def check_word(self, word):
-        """Is word in word list?"""
+        """Is word in word list?
+        
+            >>> wl = WordList("test_dictionary.txt")
+            >>> wl.check_word('CAT')
+            True
+            >>> wl.check_word('FISH')
+            False
+        
+        """
+
 
         return word in self.words
 
 
 english_words = WordList("dictionary.txt")
+
+test_words = WordList("test_dictionary.txt")
