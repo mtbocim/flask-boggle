@@ -36,12 +36,12 @@ def new_game():
 @app.post("/api/score-word")
 def score_submitted_word():
     """
-        Recieve JSON object containing keys of 'word' and 'game_id'
+        Receive JSON containing keys of 'word' and 'game_id'
 
         Evaluate if the word is a valid word in dictionary, not a duplicate,
         and finally able to be found in the current board layout.
-        
-        Return result of evaluation:
+
+        Return result of evaluation as JSON:
 
         if not a word: {result: "not-word"}
         if not on board: {result: "not-on-board"}
@@ -52,16 +52,17 @@ def score_submitted_word():
     word = word_submission_data["word"]
     game_id = word_submission_data["game_id"]
     #print("object passed for word submission>>>>>>>>>>>>>>>>>>>>",word_submission_data)
-    
-    #dictionary check
+
+    # dictionary check
     if games[game_id].is_word_in_word_list(word) != True:
         return jsonify({"result": "not-word"})
-    
-    #current board check
+
+    # current board check
     if games[game_id].check_word_on_board(word) != True:
         return jsonify({"result": "not-on-board"})
-    #valid word
-    #if games[game_id].is_word_not_a_dup(word) != True:
+    # valid word
+    # if games[game_id].is_word_not_a_dup(word) != True:
     #    return
+    games[game_id].play_and_score_word(word)
 
     return jsonify({"result": "ok"})
